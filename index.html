@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillSwap | The Matchmaking Economy for Skills</title>
+    <meta name="description" content="Peer-to-peer skill exchange platform combining Tinder-style matchmaking with LinkedIn professionalism. Trade skills, not cash.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="dark-theme">
+    
+    <!-- 1. Global Header/Navbar -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Skill<span>Swap</span></a>
+            <nav class="nav-links">
+                <a href="#how-it-works">How it Works</a>
+                <a href="#categories">Skills</a>
+                <a href="#testimonials">Stories</a>
+            </nav>
+            <div class="nav-actions">
+                <button id="theme-toggle" class="icon-btn" aria-label="Toggle Dark Mode">
+                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+                <a href="login.html" class="btn btn-ghost">Log in</a>
+                <a href="signup.html" class="btn btn-primary">Sign up</a>
+            </div>
+            <button class="menu-toggle" aria-label="Open Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- 2. Hero (Split screen, high conversion, dynamic text rotator, floating cards) -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <div class="hero-text-area">
+                <div class="pill-badge">Launch your potential</div>
+                <h1>Trade skills, <br>not cash.</h1>
+                <h2 class="dynamic-subheader">
+                    I want to learn 
+                    <span class="text-rotator">
+                        <span class="word active">React.js</span>
+                        <span class="word">French</span>
+                        <span class="word">Guitar</span>
+                        <span class="word">UX Design</span>
+                    </span>
+                </h2>
+                <p class="hero-description">The peer-to-peer matchmaking economy where your existing knowledge is the only currency you need. Connect with experts, trade your time, and level up together.</p>
+                <div class="hero-cta-group">
+                    <a href="signup.html" class="btn btn-primary btn-large">Start Swiping Skills</a>
+                    <a href="#how-it-works" class="btn btn-secondary btn-large">See How It Works</a>
+                </div>
+            </div>
+            <div class="hero-visual-area">
+                <!-- Floating matching cards animation -->
+                <div class="floating-cards-container">
+                    <div class="float-card card-1">
+                        <div class="card-avatar"><img src="https://i.pravatar.cc/150?img=32" alt="Sarah"></div>
+                        <div class="card-info">
+                            <h4>Sarah M.</h4>
+                            <p>Offers: <strong>UI Design</strong></p>
+                            <p>Wants: <strong>React</strong></p>
+                        </div>
+                        <div class="match-badge">98% Match</div>
+                    </div>
+                    <div class="float-card card-2">
+                        <div class="card-avatar"><img src="https://i.pravatar.cc/150?img=11" alt="David"></div>
+                        <div class="card-info">
+                            <h4>David K.</h4>
+                            <p>Offers: <strong>React</strong></p>
+                            <p>Wants: <strong>UI Design</strong></p>
+                        </div>
+                        <div class="match-badge">Mutual Match!</div>
+                    </div>
+                    <div class="connection-line">
+                        <svg viewBox="0 0 100 20" preserveAspectRatio="none">
+                            <path class="animated-path" d="M0,10 Q50,20 100,10" fill="none" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </div>
+                </div>
+                <!-- Abstract glowing background -->
+                <div class="glow-blob blob-1"></div>
+                <div class="glow-blob blob-2"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Problem (Why traditional learning is broken) -->
+    <section class="problem-section container" id="problem">
+        <div class="section-header text-center">
+            <h2 class="section-title">The system is <span class="text-gradient">broken</span>.</h2>
+            <p class="section-subtitle">Traditional learning paths are failing self-starters and ambitious professionals.</p>
+        </div>
+        <div class="grid grid-3 problem-cards">
+            <div class="card problem-card">
+                <div class="card-icon">💸</div>
+                <h3>Courses are expensive</h3>
+                <p>Quality bootcamps and tutors cost thousands, creating a massive barrier to entry for acquiring new high-value skills.</p>
+            </div>
+            <div class="card problem-card">
+                <div class="card-icon">🥱</div>
+                <h3>Videos are passive</h3>
+                <p>Watching tutorials without real-time feedback leads to tutorial hell. You need someone to review your specifics.</p>
+            </div>
+            <div class="card problem-card">
+                <div class="card-icon">🤝</div>
+                <h3>Networking is hard</h3>
+                <p>Finding peers at your exact level who share your drive and complementary goals feels like searching for a needle in a haystack.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Solution (The Matchmaking Economy) -->
+    <section class="solution-section container">
+        <div class="split-layout align-center">
+            <div class="solution-visual">
+                <div class="glass-panel">
+                    <div class="exchange-graphic">
+                        <div class="user-node left">
+                            <img src="https://i.pravatar.cc/150?img=47" alt="User A">
+                            <span class="skill-tag">Teaches Spanish</span>
+                        </div>
+                        <div class="exchange-arrows">
+                            <div class="arrow arrow-right">➔</div>
+                            <div class="arrow arrow-left">←</div>
+                        </div>
+                        <div class="user-node right">
+                            <img src="https://i.pravatar.cc/150?img=68" alt="User B">
+                            <span class="skill-tag">Teaches Python</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="solution-content">
+                <h2 class="section-title">Enter the <span class="text-gradient">Matchmaking Economy</span></h2>
+                <p class="lead-text">Why pay for a tutor when you can trade your expertise with someone who has the exact skills you need?</p>
+                <ul class="feature-list">
+                    <li>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <strong>1-to-1 Learning:</strong> Get personalized mentoring instead of generic courses.
+                    </li>
+                    <li>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <strong>Zero Cost:</strong> Your knowledge is your currency. No hidden fees.
+                    </li>
+                    <li>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <strong>Build Connections:</strong> Grow your professional network organically.
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. How It Works (3 Steps) -->
+    <section class="how-it-works-section container" id="how-it-works">
+        <div class="section-header text-center">
+            <h2 class="section-title">How it works</h2>
+            <p class="section-subtitle">Three simple steps to start your skill exchange journey.</p>
+        </div>
+        <div class="steps-container">
+            <div class="step-line"></div>
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Create your profile</h3>
+                    <p>List the skills you have mastered and the ones you are dying to learn. Add your portfolio and experience level.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Swipe on matches</h3>
+                    <p>Our algorithm finds users with complementary needs. Swipe right on people you'd like to collaborate with.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Connect & Learn</h3>
+                    <p>Once matched, jump into our built-in video call layout or chat to schedule your first skill-swap session.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Skill Categories (Requires Horizontal Scroll) -->
+    <section class="categories-section" id="categories">
+        <div class="container">
+            <div class="section-header flex-between">
+                <h2 class="section-title">Popular Skills</h2>
+                <div class="carousel-controls">
+                    <button class="icon-btn prev-btn" aria-label="Previous categories" data-target="categories-carousel">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    </button>
+                    <button class="icon-btn next-btn" aria-label="Next categories" data-target="categories-carousel">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-container category-carousel" id="categories-carousel">
+            <div class="carousel-track">
+                <!-- Cards -->
+                <div class="carousel-item category-card">
+                    <div class="cat-icon code">{'{}'}</div>
+                    <h3>Programming</h3>
+                    <p>React, Python, Go, Node.js</p>
+                    <span class="cat-count">12.5k users</span>
+                </div>
+                <div class="carousel-item category-card">
+                    <div class="cat-icon design">✨</div>
+                    <h3>Design</h3>
+                    <p>UI/UX, Figma, Illustration</p>
+                    <span class="cat-count">8.2k users</span>
+                </div>
+                <div class="carousel-item category-card">
+                    <div class="cat-icon language">🌍</div>
+                    <h3>Languages</h3>
+                    <p>Spanish, Mandarin, French</p>
+                    <span class="cat-count">15.1k users</span>
+                </div>
+                <div class="carousel-item category-card">
+                    <div class="cat-icon business">📈</div>
+                    <h3>Business</h3>
+                    <p>Marketing, SEO, Sales</p>
+                    <span class="cat-count">6.4k users</span>
+                </div>
+                <div class="carousel-item category-card">
+                    <div class="cat-icon music">🎵</div>
+                    <h3>Music</h3>
+                    <p>Guitar, Production, Vocals</p>
+                    <span class="cat-count">4.9k users</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. Example Skill Match (Tinder-style swipe demo) -->
+    <section class="demo-section container" id="demo">
+        <div class="split-layout">
+            <div class="demo-content">
+                <h2 class="section-title">Finding the <span class="text-gradient">perfect match</span> is easy.</h2>
+                <p>No endless searching. We show you highly compatible partners. If you both say yes, it's a match, and you can instantly start chatting or hit the video room.</p>
+                <div class="demo-stats">
+                    <div class="stat">
+                        <h4>95%</h4>
+                        <p>Match success rate</p>
+                    </div>
+                    <div class="stat">
+                        <h4>&lt; 24h</h4>
+                        <p>Avg. time to first match</p>
+                    </div>
+                </div>
+            </div>
+            <div class="demo-visual">
+                <div class="tinder-card-mockup interactive-demo">
+                    <div class="card-image-bg">
+                        <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Alex working">
+                        <div class="card-overlay-info">
+                            <h3>Alex Chen, 28</h3>
+                            <div class="skills-pill-group">
+                                <span class="pill pill-offer">Offers: Django</span>
+                                <span class="pill pill-want">Wants: React Native</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-actions">
+                        <button class="action-btn nope-btn">✕</button>
+                        <button class="action-btn super-btn">★</button>
+                        <button class="action-btn like-btn">♥</button>
+                    </div>
+                    <div class="badge-hint">Interactive Demo - Drag to swipe!</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. Reputation & Portfolio -->
+    <section class="reputation-section container">
+        <div class="grid grid-2 align-center">
+            <div class="reputation-visual">
+                <div class="profile-mockup glass-panel">
+                    <div class="profile-header">
+                        <img src="https://i.pravatar.cc/150?img=5" alt="Emma" class="avatar-lg">
+                        <div>
+                            <h3>Emma Watson</h3>
+                            <div class="stars">★★★★★ <span class="review-count">(42 reviews)</span></div>
+                        </div>
+                    </div>
+                    <div class="profile-body">
+                        <h4>Portfolio Highlights</h4>
+                        <div class="portfolio-grid">
+                            <div class="pf-item"></div>
+                            <div class="pf-item"></div>
+                            <div class="pf-item"></div>
+                        </div>
+                        <div class="review-snippet">
+                            "Emma is an incredible teacher. She helped me land my first UX job after I taught her Spanish for entirely 3 months!"
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="reputation-content">
+                <h2 class="section-title">Built on <span class="text-gradient">trust</span>.</h2>
+                <p>Your reputation is everything. Our LinkedIn-style professional profiles and verified 5-star review system ensure a high-quality community of serious learners.</p>
+                <ul class="feature-list">
+                    <li>Integrated portfolios to prove your skills</li>
+                    <li>Verified reviews from completed sessions</li>
+                    <li>Endorsements for specific micro-skills</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. Testimonials (Requires Horizontal Scroll) -->
+    <section class="testimonials-section" id="testimonials">
+        <div class="container section-header flex-between">
+            <h2 class="section-title">Success Stories</h2>
+            <div class="carousel-controls">
+                <button class="icon-btn prev-btn" aria-label="Previous testimonial" data-target="testimonials-carousel">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                </button>
+                <button class="icon-btn next-btn" aria-label="Next testimonial" data-target="testimonials-carousel">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+            </div>
+        </div>
+        <div class="carousel-container testimonial-carousel" id="testimonials-carousel">
+            <div class="carousel-track">
+                <!-- Testimonial Cards -->
+                <div class="carousel-item testimonial-card glass-panel">
+                    <p class="quote">"I wanted to learn marketing for my indie app, and traded my coding skills. Found a marketing expert from London, and now we are practically co-founders."</p>
+                    <div class="author-info">
+                        <img src="https://i.pravatar.cc/150?img=33" alt="James" class="avatar-sm">
+                        <div>
+                            <h4>James L.</h4>
+                            <span>Full-stack Dev ↔️ Marketing</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item testimonial-card glass-panel">
+                    <p class="quote">"The Tinder-like matching makes it so much less awkward to reach out. You already know they want what you have. It's brilliant."</p>
+                    <div class="author-info">
+                        <img src="https://i.pravatar.cc/150?img=44" alt="Anita" class="avatar-sm">
+                        <div>
+                            <h4>Anita P.</h4>
+                            <span>Figma Design ↔️ Webflow</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item testimonial-card glass-panel">
+                    <p class="quote">"Built-in video calls mean I don't have to share my Zoom link or phone number until I trust the person. Very safe and convenient platform."</p>
+                    <div class="author-info">
+                        <img src="https://i.pravatar.cc/150?img=55" alt="Marcus" class="avatar-sm">
+                        <div>
+                            <h4>Marcus T.</h4>
+                            <span>Spanish ↔️ English</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item testimonial-card glass-panel">
+                    <p class="quote">"I learned 3D modeling from a pro in exchange for my audio engineering skills. This app literally saved me thousands of dollars in tuition."</p>
+                    <div class="author-info">
+                        <img src="https://i.pravatar.cc/150?img=61" alt="Elena" class="avatar-sm">
+                        <div>
+                            <h4>Elena R.</h4>
+                            <span>Audio ↔️ 3D Art</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 10. Call To Action -->
+    <section class="cta-section container text-center">
+        <div class="cta-box glass-panel glass-heavy">
+            <h2>Ready to level up?</h2>
+            <p>Join thousands of professionals already trading skills today. Stop paying for courses when your experience is a currency.</p>
+            <a href="signup.html" class="btn btn-primary btn-large cta-pulse">Create Your Free Profile</a>
+            <p class="cta-sub">Takes 2 minutes. No credit card required.</p>
+        </div>
+    </section>
+
+    <!-- 11. Footer -->
+    <footer class="site-footer">
+        <div class="container grid grid-4 footer-grid">
+            <div class="footer-col brand-col">
+                <a href="#" class="logo">Skill<span>Swap</span></a>
+                <p>The peer-to-peer matchmaking economy for skills. Learn anything, pay with your knowledge.</p>
+                <div class="social-links">
+                    <a href="#">X</a>
+                    <a href="#">In</a>
+                    <a href="#">Ig</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Platform</h4>
+                <a href="#how-it-works">How it Works</a>
+                <a href="#categories">Browse Skills</a>
+                <a href="#demo">Matching</a>
+            </div>
+            <div class="footer-col">
+                <h4>Resources</h4>
+                <a href="#">Blog</a>
+                <a href="#">Community Guidelines</a>
+                <a href="#">Help Center</a>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Cookie Policy</a>
+            </div>
+        </div>
+        <div class="footer-bottom text-center">
+            <p>&copy; 2026 SkillSwap. All rights reserved. Open source under MIT.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/ui.js"></script>
+</body>
+</html>

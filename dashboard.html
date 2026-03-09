@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | SkillSwap</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .app-layout {
+            display: flex;
+            min-height: 100vh;
+            padding-top: var(--nav-height);
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 280px;
+            background: var(--bg-card);
+            border-right: 1px solid var(--border-color);
+            padding: 2rem 1.5rem;
+            position: fixed;
+            height: calc(100vh - var(--nav-height));
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        .user-widget {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 2rem;
+        }
+        
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary);
+        }
+
+        .user-info h4 { margin: 0; font-size: 1rem; }
+        .user-info span { font-size: 0.75rem; color: var(--text-muted); }
+
+        .sidebar-menu {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius-sm);
+            color: var(--text-muted);
+            font-weight: 500;
+            transition: var(--transition-fast);
+            cursor: pointer;
+        }
+        .menu-item:hover, .menu-item.active {
+            background: hsla(var(--hue-primary), 90%, 60%, 0.1);
+            color: var(--primary);
+        }
+        .menu-icon { font-size: 1.25rem; }
+        .badge {
+            margin-left: auto;
+            background: var(--primary);
+            color: white;
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: var(--radius-pill);
+            font-weight: bold;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            flex-grow: 1;
+            margin-left: 280px;
+            padding: 2rem 3rem;
+            background: var(--bg-main);
+        }
+
+        @media (max-width: 900px) {
+            .sidebar { transform: translateX(-100%); transition: transform 0.3s; }
+            .sidebar.show { transform: translateX(0); }
+            .main-content { margin-left: 0; padding: 2rem 1.5rem; width: 100%; }
+        }
+
+        /* Tab Content Containers */
+        .tab-pane {
+            display: none;
+        }
+        .tab-pane.active {
+            display: block;
+            animation: fadeIn 0.4s;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Match Mode - Tinder Style UI */
+        .match-arena {
+            height: 70vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .tinder-deck {
+            position: relative;
+            width: 360px;
+            height: 540px;
+        }
+
+        .match-card {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            /* Initial stacking styles applied via JS */
+            will-change: transform;
+            cursor: grab;
+        }
+        .match-card:active { cursor: grabbing; }
+
+        .mc-image-area { height: 60%; position: relative; }
+        .mc-image-area img { width: 100%; height: 100%; object-fit: cover; }
+        .mc-image-overlay {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, transparent 100%);
+            padding: 1.5rem; color: white;
+        }
+        .mc-image-overlay h3 { margin: 0; font-size: 1.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+        .mc-image-overlay p { margin: 0; font-size: 0.875rem; opacity: 0.9; }
+
+        .mc-content { padding: 1.5rem; height: 40%; display: flex; flex-direction: column; }
+        .skill-list h5 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 0.5rem; }
+        .skill-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+        .chip { font-size: 0.75rem; padding: 4px 10px; border-radius: var(--radius-pill); font-weight: 600; }
+        .chip-has { background: hsla(258, 90%, 60%, 0.1); color: hsl(258, 90%, 60%); border: 1px solid currentColor;}
+        .chip-wants { background: hsla(322, 90%, 60%, 0.1); color: hsl(322, 90%, 60%); border: 1px solid currentColor;}
+
+        .mc-bio { font-size: 0.875rem; color: var(--text-muted); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+        .deck-controls {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .ctrl-btn {
+            width: 60px; height: 60px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; background: var(--bg-card);
+            box-shadow: var(--shadow-md); border: 1px solid var(--border-color);
+            transition: var(--transition-fast);
+        }
+        .ctrl-btn:hover { transform: scale(1.1); box-shadow: var(--shadow-lg); }
+        .btn-nope { color: var(--danger); }
+        .btn-like { color: var(--success); }
+
+        .no-matches-state {
+            text-align: center; color: var(--text-muted);
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            display: none;
+        }
+
+        /* Mutual Matches Grid */
+        .matches-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .mutual-match-card {
+            background: var(--bg-card); border-radius: var(--radius-md);
+            padding: 1.5rem; text-align: center; border: 1px solid var(--border-color);
+            transition: var(--transition-fast);
+        }
+        .mutual-match-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--primary); }
+        .mutual-match-card img { width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 1rem auto; }
+        .match-actions { display: flex; gap: 0.5rem; margin-top: 1rem; }
+        .match-actions .btn { flex: 1; padding: 0.5rem; font-size: 0.875rem; min-height: 36px; }
+
+        /* Header logic */
+        .dash-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; }
+        .dash-header p { margin: 0; color: var(--text-muted); }
+
+    </style>
+</head>
+<body class="dark-theme">
+    
+    <!-- Navbar (Simplified for App state) -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Skill<span>Swap</span></a>
+            <div class="nav-actions">
+                <button id="theme-toggle" class="icon-btn" aria-label="Toggle Dark Mode">
+                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+                <button class="btn btn-ghost" id="logout-btn">Log out</button>
+            </div>
+            <!-- Mobile sidebar toggle -->
+            <button class="menu-toggle" id="sidebar-toggle" aria-label="Open Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="user-widget">
+                <img src="https://i.pravatar.cc/150?img=68" alt="Profile" class="user-avatar" id="current-user-avatar">
+                <div class="user-info">
+                    <h4 id="current-user-name">Loading...</h4>
+                    <span id="current-user-email">...</span>
+                </div>
+            </div>
+
+            <ul class="sidebar-menu">
+                <li class="menu-item active" data-tab="tab-discover">
+                    <span class="menu-icon">🔥</span> Discover
+                </li>
+                <li class="menu-item" data-tab="tab-matches">
+                    <span class="menu-icon">🤝</span> My Matches <span class="badge" id="matches-count">0</span>
+                </li>
+                <li class="menu-item" onclick="window.location.href='chat.html'">
+                    <span class="menu-icon">💬</span> Messages
+                </li>
+                <li class="menu-item" data-tab="tab-schedule">
+                    <span class="menu-icon">📅</span> Schedule
+                </li>
+                <li class="menu-item" data-tab="tab-profile">
+                    <span class="menu-icon">⚙️</span> Profile Settings
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            
+            <!-- Discover Tab -->
+            <div class="tab-pane active" id="tab-discover">
+                <div class="dash-header">
+                    <div>
+                        <h2>Discover</h2>
+                        <p>Swipe right to connect, left to pass.</p>
+                    </div>
+                </div>
+
+                <div class="match-arena">
+                    <div class="no-matches-state" id="no-more-cards">
+                        <h3>No more pros left right now!</h3>
+                        <p>Check back later or broaden your skill interests.</p>
+                    </div>
+
+                    <div class="tinder-deck" id="tinder-deck">
+                        <!-- Cards will be injected by match.js -->
+                        <!-- Example structural placeholder -->
+                        <div class="match-card" style="display: none;"></div> 
+                    </div>
+
+                    <div class="deck-controls">
+                        <button class="ctrl-btn btn-nope" id="deck-nope" aria-label="Pass">✕</button>
+                        <button class="ctrl-btn btn-like" id="deck-like" aria-label="Match">♥</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- My Matches Tab -->
+            <div class="tab-pane" id="tab-matches">
+                <div class="dash-header">
+                    <div>
+                        <h2>My Matches</h2>
+                        <p>People who want to trade skills with you.</p>
+                    </div>
+                </div>
+
+                <div class="matches-grid" id="matches-grid">
+                    <!-- Populated by database.js -->
+                    <!-- Loading state -->
+                    <p class="text-muted">Loading matches...</p>
+                </div>
+            </div>
+
+            <!-- Profile Settings Tab -->
+            <div class="tab-pane" id="tab-profile">
+                <div class="dash-header">
+                    <div>
+                        <h2>Profile Settings</h2>
+                        <p>Update your offerings and needs.</p>
+                    </div>
+                </div>
+                
+                <div class="glass-panel" style="padding: 2rem; max-width: 600px;">
+                    <form id="profile-form">
+                        <div class="form-group" style="margin-bottom: 2rem;">
+                            <label class="form-label">Profile Photo URL</label>
+                            <input type="url" id="edit-photo" class="form-control" placeholder="https://...">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 2rem;">
+                            <label class="form-label">I can teach/offer (Comma separated)</label>
+                            <input type="text" id="edit-offers" class="form-control">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 2rem;">
+                            <label class="form-label">I want to learn (Comma separated)</label>
+                            <input type="text" id="edit-wants" class="form-control">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 2rem;">
+                            <label class="form-label">Bio</label>
+                            <textarea id="edit-bio" class="form-control" rows="4"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" id="save-profile-btn">Save Changes</button>
+                        <span id="save-status" style="margin-left: 1rem; color: var(--success); display: none;">Saved!</span>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Schedule / Calendar Tab -->
+            <div class="tab-pane" id="tab-schedule">
+                <div class="dash-header">
+                    <div>
+                        <h2>Schedule</h2>
+                        <p>Manage your upcoming skill swap sessions.</p>
+                    </div>
+                    <button class="btn btn-primary">Book New</button>
+                </div>
+                
+                <div class="glass-panel" style="padding: 2rem;text-align: center; color: var(--text-muted)">
+                    <p>Calendar component will be integrated here.</p>
+                    <p>No upcoming sessions scheduled.</p>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/ui.js"></script>
+    <script type="module" src="js/auth.js"></script>
+    <script type="module" src="js/database.js"></script>
+    <script type="module" src="js/match.js"></script>
+    
+    <script>
+        // Tab Switching Logic
+        const menuItems = document.querySelectorAll('.menu-item[data-tab]');
+        const tabPanes = document.querySelectorAll('.tab-pane');
+
+        menuItems.forEach(item => {
+            item.addEventListener('click', () => {
+                // Remove active from all
+                menuItems.forEach(m => m.classList.remove('active'));
+                tabPanes.forEach(t => t.classList.remove('active'));
+                
+                // Add active to clicked
+                item.classList.add('active');
+                const targetId = item.getAttribute('data-tab');
+                document.getElementById(targetId).classList.add('active');
+
+                // Close sidebar on mobile after clicking
+                if(window.innerWidth <= 900) {
+                    document.getElementById('sidebar').classList.remove('show');
+                }
+            });
+        });
+
+        // Mobile sidebar toggle
+        document.getElementById('sidebar-toggle').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.toggle('show');
+        });
+    </script>
+</body>
+</html>

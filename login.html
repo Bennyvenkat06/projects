@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log in | SkillSwap</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .auth-layout {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+            background: var(--bg-main);
+            overflow: hidden;
+        }
+        
+        /* Background decorative elements */
+        .auth-bg-glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, hsla(var(--hue-primary), 90%, 60%, 0.1) 0%, transparent 60%);
+            border-radius: 50%;
+            top: -200px;
+            right: -200px;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .auth-container {
+            width: 100%;
+            max-width: 480px;
+            z-index: 10;
+        }
+        
+        .auth-card {
+            padding: 3rem;
+            text-align: center;
+        }
+        
+        .auth-logo {
+            display: inline-block;
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+        }
+        .auth-logo span { color: var(--primary); }
+        
+        .auth-title {
+            margin-bottom: 0.5rem;
+        }
+        
+        .auth-subtitle {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            font-size: 0.875rem;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            background: var(--bg-main);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            transition: var(--transition-fast);
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px hsla(var(--hue-primary), 90%, 60%, 0.2);
+        }
+        
+        .auth-btn {
+            width: 100%;
+            margin-top: 1rem;
+        }
+        
+        .auth-divider {
+            margin: 2rem 0;
+            display: flex;
+            align-items: center;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+        .auth-divider::before, .auth-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border-color);
+        }
+        .auth-divider span {
+            padding: 0 1rem;
+        }
+        
+        .auth-footer {
+            margin-top: 2rem;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+        .auth-footer a {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            color: var(--danger);
+            background: hsla(var(--hue-danger), 80%, 55%, 0.1);
+            padding: 1rem;
+            border-radius: var(--radius-sm);
+            margin-bottom: 1.5rem;
+            font-size: 0.875rem;
+            display: none;
+        }
+    </style>
+</head>
+<body class="dark-theme">
+    
+    <div class="auth-layout">
+        <div class="auth-bg-glow"></div>
+        
+        <div class="auth-container">
+            <div class="glass-panel auth-card">
+                <a href="index.html" class="auth-logo">Skill<span>Swap</span></a>
+                
+                <h1 class="auth-title">Welcome back</h1>
+                <p class="auth-subtitle">Log in to continue trading your skills.</p>
+                
+                <div id="login-error" class="error-message"></div>
+
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email address</label>
+                        <input type="email" id="email" class="form-control" placeholder="you@example.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="flex-between">
+                            <label for="password" class="form-label">Password</label>
+                            <a href="#" style="font-size: 0.75rem; color: var(--primary);">Forgot password?</a>
+                        </div>
+                        <input type="password" id="password" class="form-control" placeholder="••••••••" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary auth-btn" id="login-btn">
+                        Log In
+                    </button>
+                </form>
+                
+                <div class="auth-footer">
+                    Don't have an account? <a href="signup.html">Sign up for free</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDKs (v9 Modules) -->
+    <!-- Will be initialized and used in js/auth.js -->
+    <script type="module" src="js/auth.js"></script>
+</body>
+</html>
